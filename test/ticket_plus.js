@@ -33,7 +33,7 @@ contract("RealTicket", function (accounts) {
     roles = [
       await this.ticket.DEFAULT_ADMIN_ROLE(),
       await this.ticket.MANAGER_ROLE(),
-      await this.ticket.SECURITY_ROLE()
+      await this.ticket.BOUNCER_ROLE()
     ]
 
     for (let i = 0; i < roles.length; i++) {

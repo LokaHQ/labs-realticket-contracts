@@ -21,7 +21,7 @@ contract RealTicket is
 {
   using Counters for Counters.Counter;
   bytes32 public constant MANAGER_ROLE = keccak256("MANAGER_ROLE");
-  bytes32 public constant SECURITY_ROLE = keccak256("SECURITY_ROLE");
+  bytes32 public constant BOUNCER_ROLE = keccak256("BOUNCER_ROLE");
   Counters.Counter private _tokenIdTracker;
 
   string private _baseTokenURI;
@@ -50,7 +50,7 @@ contract RealTicket is
 
       _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
       _setupRole(MANAGER_ROLE, _msgSender());
-      _setupRole(SECURITY_ROLE, _msgSender());
+      _setupRole(BOUNCER_ROLE, _msgSender());
   }
 
   function _baseURI() internal view virtual override returns (string memory) {
@@ -124,13 +124,13 @@ contract RealTicket is
   }
 
   function useTicket(uint256 tokenId) public virtual {
-      require(hasRole(SECURITY_ROLE, _msgSender()), "RealTicket: must have security role");
+      require(hasRole(BOUNCER_ROLE, _msgSender()), "RealTicket: must have bouncer role");
       require(ERC721._exists(tokenId), "RealTicket: ticket not existent");
       _useTicket(tokenId);
   }
 
   function blockTicket(uint256 tokenId) public virtual {
-      require(hasRole(SECURITY_ROLE, _msgSender()), "RealTicket: must have security role");
+      require(hasRole(BOUNCER_ROLE, _msgSender()), "RealTicket: must have bouncer role");
       require(ERC721._exists(tokenId), "RealTicket: ticket not existent");
       _blockTicket(tokenId);
   }
